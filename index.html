@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodMart - Fresh Food Delivery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1 class="app-title">🛒 FoodMart</h1>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <span class="theme-icon" id="themeIcon">☀️</span>
+                    </button>
+                </div>
+                
+                <!-- Delivery Address Search -->
+                <div class="address-search-container">
+                    <div class="address-search">
+                        <span class="location-icon">📍</span>
+                        <input 
+                            type="text" 
+                            class="address-input" 
+                            id="addressInput" 
+                            placeholder="Enter delivery address..."
+                            autocomplete="off"
+                        >
+                        <div class="address-dropdown hidden" id="addressDropdown">
+                            <!-- Address suggestions will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <button class="cart-toggle" id="cartToggle">
+                    <span class="cart-icon">🛒</span>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- Search and Filters -->
+            <div class="controls">
+                <div class="search-container">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search for products...">
+                </div>
+                <div class="category-filters">
+                    <button class="filter-btn active" data-category="All">All</button>
+                    <button class="filter-btn" data-category="Fruits">Fruits</button>
+                    <button class="filter-btn" data-category="Vegetables">Vegetables</button>
+                    <button class="filter-btn" data-category="Dairy">Dairy</button>
+                    <button class="filter-btn" data-category="Bakery">Bakery</button>
+                    <button class="filter-btn" data-category="Grains">Grains</button>
+                    <button class="filter-btn" data-category="Snacks">Snacks</button>
+                    <button class="filter-btn" data-category="Beverages">Beverages</button>
+                    <button class="filter-btn" data-category="Meat">Meat</button>
+                    <button class="filter-btn" data-category="Frozen">Frozen</button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be dynamically generated here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar hidden" id="cartSidebar">
+        <div class="cart-overlay" id="cartOverlay"></div>
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Your Cart</h2>
+                <button class="cart-close" id="cartClose">×</button>
+            </div>
+            
+            <div class="cart-body">
+                <div class="cart-items" id="cartItems">
+                    <!-- Cart items will be dynamically generated here -->
+                </div>
+                
+                <div class="cart-empty hidden" id="cartEmpty">
+                    <div class="empty-message">
+                        <span class="empty-icon">🛒</span>
+                        <p>Your cart is empty</p>
+                        <small>Add some delicious items to get started!</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cart-footer">
+                <div class="delivery-info" id="deliveryInfo">
+                    <!-- Delivery address and time will be shown here -->
+                </div>
+                <div class="subscription-options" id="subscriptionOptions">
+                    <h4>Subscription Options</h4>
+                    <div class="subscription-frequencies">
+                        <label class="subscription-option">
+                            <input type="radio" name="subscription" value="" checked>
+                            <span class="subscription-label">One-time purchase</span>
+                        </label>
+                        <label class="subscription-option">
+                            <input type="radio" name="subscription" value="weekly">
+                            <span class="subscription-label">Weekly (8% off)</span>
+                        </label>
+                        <label class="subscription-option">
+                            <input type="radio" name="subscription" value="biweekly">
+                            <span class="subscription-label">Bi-weekly (6% off)</span>
+                        </label>
+                        <label class="subscription-option">
+                            <input type="radio" name="subscription" value="monthly">
+                            <span class="subscription-label">Monthly (5% off)</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="cart-total">
+                    <div class="total-row">
+                        <span>Total: </span>
+                        <span class="total-amount" id="cartTotal">₹0</span>
+                    </div>
+                </div>
+                <!-- Slide to Confirm Checkout -->
+                <div class="slide-checkout" id="slideCheckout">
+                    <div class="slide-track">
+                        <div class="slide-handle" id="slideHandle">
+                            <span class="slide-arrow">→</span>
+                        </div>
+                        <div class="slide-text">Slide to confirm order</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Confirmation Modal -->
+    <div class="checkout-modal hidden" id="checkoutModal">
+        <div class="checkout-overlay"></div>
+        <div class="checkout-content">
+            <div class="checkout-success">
+                <div class="success-icon">✅</div>
+                <h3>Order Confirmed!</h3>
+                <div class="order-details" id="orderDetails">
+                    <!-- Order details will be populated here -->
+                </div>
+                <button class="btn btn--primary" id="closeCheckoutModal">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Address Required Modal -->
+    <div class="modal hidden" id="addressModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Delivery Address Required</h3>
+                <button class="modal-close" id="modalClose">×</button>
+            </div>
+            <div class="modal-body">
+                <p>Please select your delivery address before proceeding to checkout.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--primary" id="modalOkBtn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
